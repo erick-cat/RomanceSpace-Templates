@@ -1,0 +1,55 @@
+name: Upload Changed Templates
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+
+jobs:
+  upload:
+    name: Detect & Upload Changed Templates
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2   # need parent commit to diff
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Detect changed template directories
+        id: changed
+        run: |
+          # Get files changed vs the previous commit
+          CHANGED=$(git diff --name-only HEAD~1 HEAD -- src/ | grep '^src/' | cut -d'/' -f2 | sort -u)
+          echo "Templates changed: $CHANGED"
+          # Convert to comma-separated for output
+          TEMPLATES=$(echo "$CHANGED" | tr '\n' ',' | sed 's/,$//')
+          echo "templates=$TEMPLATES" >> "$GITHUB_OUTPUT"
+
+      - name: Upload each changed template
+        if: steps.changed.outputs.templates != ''
+        env:
+          RS_ADMIN_KEY: ${{ secrets.RS_ADMIN_KEY }}
+          RS_WORKER_URL: ${{ vars.RS_WORKER_URL || 'https://romancespace.885201314.xyz' }}
+        run: |
+          IFS=',' read -ra TMPL_LIST <<< "${{ steps.changed.outputs.templates }}"
+          for tmpl in "${TMPL_LIST[@]}"; do
+            tmpl=$(echo "$tmpl" | xargs)   # trim whitespace
+            DIR="src/$tmpl"
+            if [ -d "$DIR" ] && [ -f "$DIR/index.html" ]; then
+              echo "⬆️  Uploading template: $tmpl (dir: $DIR)"
+              node -r dotenv/config scripts/upload-template.js "$tmpl" "$DIR"
+            else
+              echo "⚠️  Skipping '$tmpl': not a valid template dir (missing index.html)"
+            fi
+          done
