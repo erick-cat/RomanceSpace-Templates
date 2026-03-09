@@ -1,0 +1,31 @@
+{
+    "static": false,
+    "fields": [
+        {
+            "key": "title",
+            "type": "string",
+            "default": "我们在一起"
+        },
+        {
+            "key": "startDate",
+            "type": "string",
+            "default": "2023-01-01"
+        },
+        {
+            "key": "message",
+            "type": "string",
+            "default": "感谢有你陪伴的每一天。"
+        },
+        {
+            "key": "names",
+            "type": "array",
+            "join": " ❤️ ",
+            "wrapStart": "",
+            "wrapEnd": "",
+            "default": [
+                "Ta",
+                "你"
+            ]
+        }
+    ]
+}
