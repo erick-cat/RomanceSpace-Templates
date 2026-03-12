@@ -11,7 +11,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const WORKER_URL = process.env.RS_WORKER_URL ?? 'https://romancespace.885201314.xyz';
+const WORKER_URL = process.env.RS_WORKER_URL ?? 'https://www.885201314.xyz';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -89,7 +89,7 @@ async function main() {
 
     let res;
     try {
-        res = await fetch(`${WORKER_URL}/admin/upload-template`, {
+        res = await fetch(`${WORKER_URL}/api/template/upload`, {
             method: 'POST',
             headers: { 'X-Admin-Key': adminKey },
             body: formData,
