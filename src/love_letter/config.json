@@ -1,0 +1,35 @@
+{
+  "name": "love_letter",
+  "version": "1.1.0",
+  "static": false,
+  "fields": [
+    {
+      "id": "title",
+      "label": "标题",
+      "placeholder": "例如：致我最爱的人",
+      "default": "给你的一封信",
+      "type": "text"
+    },
+    {
+      "id": "sender",
+      "label": "发送人 (你)",
+      "placeholder": "你的名字",
+      "default": "你的TA",
+      "type": "text"
+    },
+    {
+      "id": "receiver",
+      "label": "接收人 (TA)",
+      "placeholder": "对方的名字",
+      "default": "亲爱的你",
+      "type": "text"
+    },
+    {
+      "id": "paragraphs",
+      "label": "信件内容",
+      "placeholder": "输入感人的信件内容...",
+      "default": "遇见你，是我这辈子最美好的事。\n希望我们一直在一起。",
+      "type": "textarea"
+    }
+  ]
+}
