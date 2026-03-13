@@ -1,0 +1,29 @@
+{
+  "name": "boilerplate_template",
+  "version": "1.0.0",
+  "description": "A standardized boilerplate for creating new RomanceSpace templates.",
+  "static": false,
+  "fields": [
+    {
+      "id": "title",
+      "label": "网页标题",
+      "placeholder": "请输入网页标签页显示的标题",
+      "default": "致最亲爱的你",
+      "type": "text"
+    },
+    {
+      "id": "receiver",
+      "label": "接收人名字",
+      "placeholder": "TA 的名字",
+      "default": "小红",
+      "type": "text"
+    },
+    {
+      "id": "message",
+      "label": "浪漫寄语",
+      "placeholder": "你想对 TA 说的话...",
+      "default": "在这个特别的日子里，我想对你说...",
+      "type": "textarea"
+    }
+  ]
+}
