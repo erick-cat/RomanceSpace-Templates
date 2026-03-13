@@ -1,8 +1,18 @@
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 body {
   font-family: 'Lora', 'Noto Serif SC', serif;
   background: #fff0f5;
   margin: 0;
-  padding: 2rem;
+  padding: 1rem;
+  padding-bottom: 80px; /* Safety zone for viral footer */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,7 +23,7 @@ body {
   background: #fffcf4;
   max-width: 620px;
   width: 100%;
-  padding: 3rem 4rem;
+  padding: 2.5rem 2rem;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
   border-radius: 4px;
   position: relative;
@@ -21,21 +31,23 @@ body {
     white 0px, white 24px, #e8e8e8 25px
   );
   line-height: 25px;
+  margin: auto;
 }
 
 .letter-paper::before {
   content: '';
   position: absolute;
-  top: 0; left: 32px; bottom: 0; width: 2px;
+  top: 0; left: 24px; bottom: 0; width: 2px;
   background: rgba(255, 100, 100, 0.25);
 }
 
-h1 {
+.title {
+  display: block;
+  text-align: center;
   margin-top: 0;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   color: #d6336c;
   background: #fffcf4;
-  display: inline-block;
   padding: 0 10px;
 }
 
