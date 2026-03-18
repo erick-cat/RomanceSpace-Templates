@@ -1,0 +1,38 @@
+{
+  "name": "relationship_booster",
+  "title": "人际关系升温卡",
+  "version": "1.0.0",
+  "static": false,
+  "description": "加深彼此感情，记录美好回忆",
+  "tier": "free",
+  "fields": [
+    {
+      "id": "nickname",
+      "label": "对方昵称",
+      "placeholder": "输入对方的昵称",
+      "default": "亲爱的",
+      "type": "text"
+    },
+    {
+      "id": "memories",
+      "label": "共同回忆",
+      "placeholder": "用逗号分隔多个回忆",
+      "default": "一起看电影,一起旅行",
+      "type": "textarea"
+    },
+    {
+      "id": "qna",
+      "label": "互动问答",
+      "placeholder": "写下你们的专属问答",
+      "default": "最喜欢的地方? 海边",
+      "type": "textarea"
+    },
+    {
+      "id": "message",
+      "label": "心意留言",
+      "placeholder": "写下你想对TA说的话",
+      "default": "和你在一起的每一天都很美好",
+      "type": "textarea"
+    }
+  ]
+}

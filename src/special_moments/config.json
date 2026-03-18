@@ -1,0 +1,38 @@
+{
+  "name": "special_moments",
+  "title": "特殊时刻纪念册",
+  "version": "1.0.0",
+  "static": false,
+  "description": "记录生命中每一个值得纪念的时刻",
+  "tier": "free",
+  "fields": [
+    {
+      "id": "event_name",
+      "label": "事件名称",
+      "placeholder": "如：生日、纪念日",
+      "default": "特别的日子",
+      "type": "text"
+    },
+    {
+      "id": "countdown",
+      "label": "倒计时天数",
+      "placeholder": "输入数字",
+      "default": "7",
+      "type": "text"
+    },
+    {
+      "id": "photo_urls",
+      "label": "照片链接",
+      "placeholder": "用逗号分隔多个链接",
+      "default": "",
+      "type": "textarea"
+    },
+    {
+      "id": "messages",
+      "label": "留言板",
+      "placeholder": "写下你的祝福",
+      "default": "愿这一刻成为永恒",
+      "type": "textarea"
+    }
+  ]
+}

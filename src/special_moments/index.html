@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>特殊时刻纪念册</title>
+    <style>
+      :root {
+        --primary-color: #ff6b6b;
+        --secondary-color: #4ecdc4;
+        --accent-color: #ffe66d;
+        --text-color: #333;
+        --light-text: #fff;
+        --background-gradient: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+        --card-background: rgba(255, 255, 255, 0.95);
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: var(--background-gradient);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .balloons {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .balloon {
+        position: absolute;
+        font-size: 30px;
+        animation: float 10s infinite ease-in-out;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(100vh) rotate(0deg); }
+        50% { transform: translateY(-100px) rotate(10deg); }
+      }
+
+      .container {
+        width: 100%;
+        max-width: 900px;
+        background: var(--card-background);
+        border-radius: 20px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        animation: fadeIn 0.8s ease-out;
+        position: relative;
+        z-index: 1;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: var(--light-text);
+        padding: 30px;
+        text-align: center;
+      }
+
+      .header h1 {
+        font-size: 32px;
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+
+      .header p {
+        font-size: 18px;
+        opacity: 0.9;
+      }
+
+      .content {
+        padding: 30px;
+      }
+
+      .countdown-section {
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 20px;
+        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        border-radius: 15px;
+      }
+
+      .countdown-title {
+        font-size: 20px;
+        color: var(--text-color);
+        margin-bottom: 20px;
+        font-weight: 600;
+      }
+
+      .countdown-timer {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 15px;
+      }
+
+      .countdown-item {
+        text-align: center;
+      }
+
+      .countdown-number {
+        font-size: 36px;
+        font-weight: 700;
+        color: var(--primary-color);
+        background: var(--card-background);
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        min-width: 80px;
+      }
+
+      .countdown-label {
+        font-size: 14px;
+        color: var(--text-color);
+        margin-top: 5px;
+      }
+
+      .event-name {
+        font-size: 24px;
+        color: var(--primary-color);
+        margin-bottom: 10px;
+        font-weight: 600;
+      }
+
+      .photo-section {
+        margin-bottom: 40px;
+      }
+
+      .section-title {
+        font-size: 20px;
+        color: var(--text-color);
+        margin-bottom: 20px;
+        font-weight: 600;
+        text-align: center;
+      }
+
+      .photo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .photo-placeholder {
+        aspect-ratio: 1;
+        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        color: var(--primary-color);
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      .photo-placeholder:hover {
+        transform: scale(1.05);
+      }
+
+      .messages-section {
+        margin-bottom: 30px;
+      }
+
+      .messages-input {
+        width: 100%;
+        min-height: 150px;
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 10px;
+        padding: 15px;
+        color: var(--text-color);
+        font-size: 16px;
+        resize: vertical;
+        font-family: inherit;
+      }
+
+      .action-section {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .primary-button {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: var(--light-text);
+        border: none;
+        padding: 15px 30px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+      }
+
+      .primary-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+      }
+
+      .primary-button:active {
+        transform: translateY(0);
+      }
+
+      .footer {
+        text-align: center;
+        padding: 20px;
+        background: #f8f9fa;
+        border-top: 1px solid #e9ecef;
+        font-size: 14px;
+        color: var(--text-color);
+        opacity: 0.8;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          margin: 10px;
+        }
+
+        .header {
+          padding: 20px;
+        }
+
+        .header h1 {
+          font-size: 28px;
+        }
+
+        .content {
+          padding: 20px;
+        }
+
+        .countdown-timer {
+          gap: 10px;
+        }
+
+        .countdown-number {
+          font-size: 24px;
+          padding: 10px;
+          min-width: 60px;
+        }
+
+        .photo-grid {
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          gap: 10px;
+        }
+
+        .primary-button {
+          padding: 12px 24px;
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="balloons" id="balloons"></div>
+    
+    <div class="container">
+      <div class="header">
+        <h1>特殊时刻纪念册</h1>
+        <p>记录美好，珍藏回忆</p>
+      </div>
+      
+      <div class="content">
+        <div class="countdown-section">
+          <div class="event-name">{{ event_name }}</div>
+          <div class="countdown-title">距离开始还有</div>
+          <div class="countdown-timer" id="countdownTimer">
+            <div class="countdown-item">
+              <div class="countdown-number" id="days">{{ countdown }}</div>
+              <div class="countdown-label">天</div>
+            </div>
+            <div class="countdown-item">
+              <div class="countdown-number" id="hours">00</div>
+              <div class="countdown-label">时</div>
+            </div>
+            <div class="countdown-item">
+              <div class="countdown-number" id="minutes">00</div>
+              <div class="countdown-label">分</div>
+            </div>
+            <div class="countdown-item">
+              <div class="countdown-number" id="seconds">00</div>
+              <div class="countdown-label">秒</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="photo-section">
+          <div class="section-title">照片墙</div>
+          <div class="photo-grid">
+            <div class="photo-placeholder">📷</div>
+            <div class="photo-placeholder">📸</div>
+            <div class="photo-placeholder">🎞️</div>
+            <div class="photo-placeholder">📹</div>
+            <div class="photo-placeholder">🎭</div>
+            <div class="photo-placeholder">🎉</div>
+          </div>
+        </div>
+        
+        <div class="messages-section">
+          <div class="section-title">留言板</div>
+          <textarea class="messages-input" placeholder="写下你的祝福">{{ messages }}</textarea>
+        </div>
+        
+        <div class="action-section">
+          <button class="primary-button" id="shareBtn">分享纪念册</button>
+        </div>
+      </div>
+      
+      <div class="footer">
+        <p>愿这一刻成为永恒的美好回忆</p>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // 创建气球背景
+        const balloons = document.getElementById('balloons');
+        const balloonEmojis = ['🎈', '🎀', '🎉', '✨', '🎊'];
+        const balloonCount = 10;
+        
+        for (let i = 0; i < balloonCount; i++) {
+          const balloon = document.createElement('div');
+          balloon.className = 'balloon';
+          balloon.textContent = balloonEmojis[Math.floor(Math.random() * balloonEmojis.length)];
+          balloon.style.left = Math.random() * 100 + '%';
+          balloon.style.animationDelay = Math.random() * 10 + 's';
+          balloon.style.animationDuration = (10 + Math.random() * 5) + 's';
+          balloons.appendChild(balloon);
+        }
+        
+        // 倒计时功能
+        const countdownDays = parseInt(document.getElementById('days').textContent);
+        let totalSeconds = countdownDays * 24 * 60 * 60;
+        
+        function updateCountdown() {
+          const days = Math.floor(totalSeconds / (24 * 60 * 60));
+          const hours = Math.floor((totalSeconds % (24 * 60 * 60)) / (60 * 60));
+          const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
+          const seconds = totalSeconds % 60;
+          
+          document.getElementById('days').textContent = days.toString().padStart(2, '0');
+          document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+          document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+          document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+          
+          if (totalSeconds > 0) {
+            totalSeconds--;
+          }
+        }
+        
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+        
+        // 分享按钮功能
+        const shareBtn = document.getElementById('shareBtn');
+        shareBtn.addEventListener('click', function() {
+          if (navigator.share) {
+            navigator.share({
+              title: '特殊时刻纪念册',
+              text: '快来查看我们的特殊时刻纪念册！',
+              url: window.location.href
+            });
+          } else {
+            // 复制链接到剪贴板
+            navigator.clipboard.writeText(window.location.href).then(function() {
+              alert('链接已复制到剪贴板');
+            });
+          }
+        });
+        
+        // 照片点击预览
+        const photoPlaceholders = document.querySelectorAll('.photo-placeholder');
+        photoPlaceholders.forEach(placeholder => {
+          placeholder.addEventListener('click', function() {
+            alert('照片上传功能即将开放');
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
