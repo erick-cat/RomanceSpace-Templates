@@ -2,6 +2,21 @@
 
 存放所有可上传到 RomanceSpace 的响应式 HTML 模板。
 
+## 📦 已收录模板
+
+| 模板名 | 中文名称 | 状态 |
+|--------|----------|------|
+| `anniversary` | 周年纪念 | ✅ |
+| `daily_encouragement` | 日常鼓励充电站 | ✅ |
+| `emotion_tree_hole` | 情绪树洞与自我对话 | ✅ |
+| `endless_romance` | 无尽浪漫 | ✅ |
+| `love_letter` | 浪漫情书 | ✅ |
+| `relationship_booster` | 人际关系升温卡 | ✅ |
+| `self_care_room` | 自我关怀疗愈室 | ✅ |
+| `special_moments` | 特殊时刻纪念册 | ✅ |
+
+---
+
 ## 🚀 自动上传流程
 
 当你向 `main` 分支 push 代码或合入 PR 时，GitHub Actions 会自动检测 `src/` 下发生变更的模板并进行部署。

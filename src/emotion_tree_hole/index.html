@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>情绪树洞与自我对话</title>
+    <style>
+      :root {
+        --primary-color: #6a0dad;
+        --secondary-color: #3a0ca3;
+        --accent-color: #f72585;
+        --text-color: #e0e0e0;
+        --light-text: #fff;
+        --background-color: #0f0f1a;
+        --card-background: rgba(30, 30, 46, 0.8);
+        --input-background: rgba(40, 40, 60, 0.8);
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: var(--background-color);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .stars {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 3s infinite;
+      }
+
+      @keyframes twinkle {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 1; }
+      }
+
+      .container {
+        width: 100%;
+        max-width: 800px;
+        background: var(--card-background);
+        border-radius: 20px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        animation: fadeIn 0.8s ease-out;
+        position: relative;
+        z-index: 1;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: var(--light-text);
+        padding: 30px;
+        text-align: center;
+        position: relative;
+      }
+
+      .header::before {
+        content: '🌳';
+        position: absolute;
+        top: 10px;
+        left: 20px;
+        font-size: 24px;
+      }
+
+      .header h1 {
+        font-size: 28px;
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+
+      .header p {
+        font-size: 16px;
+        opacity: 0.9;
+      }
+
+      .content {
+        padding: 30px;
+      }
+
+      .date-section {
+        text-align: center;
+        margin-bottom: 30px;
+        color: var(--text-color);
+      }
+
+      .date {
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      .emotion-section {
+        margin-bottom: 30px;
+      }
+
+      .section-title {
+        font-size: 18px;
+        color: var(--light-text);
+        margin-bottom: 15px;
+        font-weight: 600;
+      }
+
+      .emotion-input {
+        width: 100%;
+        min-height: 150px;
+        background: var(--input-background);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 15px;
+        color: var(--text-color);
+        font-size: 16px;
+        resize: vertical;
+        font-family: inherit;
+      }
+
+      .tags-section {
+        margin-bottom: 30px;
+      }
+
+      .tags-input {
+        width: 100%;
+        background: var(--input-background);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 15px;
+        color: var(--text-color);
+        font-size: 16px;
+      }
+
+      .tags-cloud {
+        margin-top: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .tag {
+        background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+        color: var(--light-text);
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 14px;
+        animation: tagIn 0.5s ease-out;
+      }
+
+      @keyframes tagIn {
+        from { opacity: 0; transform: scale(0.8); }
+        to { opacity: 1; transform: scale(1); }
+      }
+
+      .self-talk-section {
+        margin-bottom: 30px;
+      }
+
+      .self-talk-input {
+        width: 100%;
+        min-height: 100px;
+        background: var(--input-background);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 15px;
+        color: var(--text-color);
+        font-size: 16px;
+        resize: vertical;
+        font-family: inherit;
+      }
+
+      .action-section {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .primary-button {
+        background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+        color: var(--light-text);
+        border: none;
+        padding: 15px 30px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(247, 37, 133, 0.3);
+      }
+
+      .primary-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(247, 37, 133, 0.4);
+      }
+
+      .primary-button:active {
+        transform: translateY(0);
+      }
+
+      .history-section {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .history-item {
+        background: var(--input-background);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 10px;
+        animation: historyIn 0.5s ease-out;
+      }
+
+      @keyframes historyIn {
+        from { opacity: 0; transform: translateX(-20px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+
+      .history-date {
+        font-size: 14px;
+        color: var(--accent-color);
+        margin-bottom: 5px;
+      }
+
+      .history-content {
+        font-size: 14px;
+        color: var(--text-color);
+        line-height: 1.4;
+      }
+
+      .footer {
+        text-align: center;
+        padding: 20px;
+        background: rgba(20, 20, 30, 0.8);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 14px;
+        color: var(--text-color);
+        opacity: 0.8;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          margin: 10px;
+        }
+
+        .header {
+          padding: 20px;
+        }
+
+        .header h1 {
+          font-size: 24px;
+        }
+
+        .content {
+          padding: 20px;
+        }
+
+        .primary-button {
+          padding: 12px 24px;
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+      <div class="header">
+        <h1>情绪树洞与自我对话</h1>
+        <p>在这里，你可以安全地表达自己的情绪</p>
+      </div>
+      
+      <div class="content">
+        <div class="date-section">
+          <div class="date">{{ date }}</div>
+        </div>
+        
+        <div class="emotion-section">
+          <div class="section-title">情绪记录</div>
+          <textarea class="emotion-input" placeholder="写下你的心情...">{{ emotion_note }}</textarea>
+        </div>
+        
+        <div class="tags-section">
+          <div class="section-title">情绪标签</div>
+          <input type="text" class="tags-input" placeholder="用逗号分隔多个标签" value="{{ mood_tags }}">
+          <div class="tags-cloud" id="tagsCloud"></div>
+        </div>
+        
+        <div class="self-talk-section">
+          <div class="section-title">自我对话</div>
+          <textarea class="self-talk-input" placeholder="对自己说的话">{{ self_talk }}</textarea>
+        </div>
+        
+        <div class="action-section">
+          <button class="primary-button" id="saveBtn">保存记录</button>
+        </div>
+        
+        <div class="history-section">
+          <div class="section-title">历史记录</div>
+          <div class="history-item">
+            <div class="history-date">2026-03-17</div>
+            <div class="history-content">今天有点累，但还是坚持完成了所有任务。你已经做得很好了！</div>
+          </div>
+          <div class="history-item">
+            <div class="history-date">2026-03-16</div>
+            <div class="history-content">遇到了一些挑战，但我相信自己能够克服。加油！</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer">
+        <p>这里是你的安全空间，所有情绪都值得被倾听</p>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // 创建星星背景
+        const stars = document.getElementById('stars');
+        const starCount = 100;
+        
+        for (let i = 0; i < starCount; i++) {
+          const star = document.createElement('div');
+          star.className = 'star';
+          star.style.left = Math.random() * 100 + '%';
+          star.style.top = Math.random() * 100 + '%';
+          star.style.animationDelay = Math.random() * 3 + 's';
+          stars.appendChild(star);
+        }
+        
+        // 生成标签云
+        const tagsInput = document.querySelector('.tags-input');
+        const tagsCloud = document.getElementById('tagsCloud');
+        
+        function generateTags() {
+          tagsCloud.innerHTML = '';
+          const tags = tagsInput.value.split(',').map(tag => tag.trim()).filter(tag => tag);
+          
+          tags.forEach(tag => {
+            const tagElement = document.createElement('div');
+            tagElement.className = 'tag';
+            tagElement.textContent = tag;
+            tagsCloud.appendChild(tagElement);
+          });
+        }
+        
+        generateTags();
+        tagsInput.addEventListener('input', generateTags);
+        
+        // 保存按钮功能
+        const saveBtn = document.getElementById('saveBtn');
+        const emotionInput = document.querySelector('.emotion-input');
+        const selfTalkInput = document.querySelector('.self-talk-input');
+        const historySection = document.querySelector('.history-section');
+        
+        saveBtn.addEventListener('click', function() {
+          const emotion = emotionInput.value;
+          const selfTalk = selfTalkInput.value;
+          const date = new Date().toISOString().split('T')[0];
+          
+          if (emotion) {
+            const historyItem = document.createElement('div');
+            historyItem.className = 'history-item';
+            historyItem.innerHTML = `
+              <div class="history-date">${date}</div>
+              <div class="history-content">${emotion}</div>
+            `;
+            
+            // 插入到历史记录的顶部
+            const firstHistoryItem = historySection.querySelector('.history-item');
+            if (firstHistoryItem) {
+              historySection.insertBefore(historyItem, firstHistoryItem);
+            } else {
+              historySection.appendChild(historyItem);
+            }
+            
+            // 清空输入框
+            emotionInput.value = '';
+            selfTalkInput.value = '';
+            tagsInput.value = '';
+            generateTags();
+            
+            // 显示保存成功的提示
+            alert('记录已保存');
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+{
+  "name": "emotion_tree_hole",
+  "title": "情绪树洞与自我对话",
+  "version": "1.0.0",
+  "static": false,
+  "description": "记录心情，与自己深度对话",
+  "tier": "free",
+  "fields": [
+    {
+      "id": "emotion_note",
+      "label": "情绪记录",
+      "placeholder": "写下你的心情...",
+      "default": "今天的心情是...",
+      "type": "textarea"
+    },
+    {
+      "id": "mood_tags",
+      "label": "情绪标签",
+      "placeholder": "用逗号分隔多个标签",
+      "default": "平静,思考",
+      "type": "text"
+    },
+    {
+      "id": "date",
+      "label": "日期",
+      "placeholder": "YYYY-MM-DD",
+      "default": "2026-03-18",
+      "type": "text"
+    },
+    {
+      "id": "self_talk",
+      "label": "自我对话",
+      "placeholder": "对自己说的话",
+      "default": "你已经很努力了",
+      "type": "textarea"
+    }
+  ]
+}

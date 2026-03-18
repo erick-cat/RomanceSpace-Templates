@@ -1,0 +1,38 @@
+{
+  "name": "self_care_room",
+  "title": "自我关怀疗愈室",
+  "version": "1.0.0",
+  "static": false,
+  "description": "放松身心，给自己一个温暖的拥抱",
+  "tier": "free",
+  "fields": [
+    {
+      "id": "breath_rate",
+      "label": "呼吸频率",
+      "placeholder": "输入数字(秒)",
+      "default": "4",
+      "type": "text"
+    },
+    {
+      "id": "mindfulness_tip",
+      "label": "正念提示",
+      "placeholder": "输入正念练习提示",
+      "default": "专注于当下的呼吸",
+      "type": "textarea"
+    },
+    {
+      "id": "relax_music",
+      "label": "放松音乐",
+      "placeholder": "输入音乐名称",
+      "default": "雨声",
+      "type": "text"
+    },
+    {
+      "id": "affirmation",
+      "label": "自我肯定",
+      "placeholder": "输入自我肯定语句",
+      "default": "我值得被爱和关怀",
+      "type": "textarea"
+    }
+  ]
+}
