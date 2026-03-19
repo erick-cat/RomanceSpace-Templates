@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * RomanceSpace Template Upload Tool
+ * Mood Space Template Upload Tool
  * Usage: node scripts/upload-template.js <templateName> <templateDir>
  *
  * Environment variables:
